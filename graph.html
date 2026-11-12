@@ -36,15 +36,13 @@
 </head>
 <body>
 
-<header id="topbar">
-  <button id="sidebarBtn" title="Switch between Whiteboard and Graph" aria-label="Open menu"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect class="a" x="3.5" y="4.5" width="6" height="15" rx="2"/><rect x="3.5" y="4.5" width="17" height="15" rx="3.5"/><path d="M9.5 4.5v15"/></svg></button>
-  <h1 id="title"><img src="icon.png" alt="" width="26" height="26"><span>Graph</span></h1>
-</header>
-
 <div id="app">
   <nav id="rail" aria-label="Panels">
+    <button id="sidebarBtn" title="Switch between Whiteboard and Graph" aria-label="Open menu"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect class="a" x="3.5" y="4.5" width="6" height="15" rx="2"/><rect x="3.5" y="4.5" width="17" height="15" rx="3.5"/><path d="M9.5 4.5v15"/></svg></button>
+    <span class="rsep"></span>
     <button class="rb active" data-panel="algebra" title="Algebra" aria-label="Algebra"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect class="a" x="3" y="4.2" width="3.4" height="3.4" rx="1.4"/><path d="M10 6h10M10 12h10M10 18h10M4.7 6h.01M4.7 12h.01M4.7 18h.01" stroke-width="1.75"/><path d="M4.7 6h.01M4.7 12h.01M4.7 18h.01" stroke-width="2.6"/></svg><span>Algebra</span></button>
-    <button class="rb" data-panel="tools" title="Geometry tools" aria-label="Tools"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="a" d="M4 4v16h16z" transform="translate(1.5 1.5)"/><path d="M4 4v16h16zM4 9h2.5M4 13h2.5M8 20v-2.5M12 20v-2.5"/></svg><span>Tools</span></button>
+    <button class="rb" data-panel="tools" title="Geometry tools" aria-label="Tools"><span class="gi"><svg class="gtool" viewBox="18.00 198.00 28.00 28.00" fill="none" aria-hidden="true"><path d="M45 217.2L34.6043 199L30.0301 207.008C28.2454 206.62 26.385 206.778 24.6913 207.462C22.9975 208.146 21.5488 209.324 20.5338 210.843C19.5188 212.362 18.9845 214.152 19.0003 215.979C19.0162 217.806 19.5816 219.586 20.6229 221.088C21.6642 222.589 23.1331 223.742 24.8385 224.396C26.5438 225.051 28.4067 225.176 30.1844 224.757C31.9622 224.337 33.5725 223.392 34.8058 222.044C36.0392 220.697 36.8383 219.009 37.0992 217.2H45ZM34.6043 204.486L40.3739 214.6H37.0992C36.9014 213.23 36.3936 211.922 35.6144 210.778C34.8353 209.633 33.8054 208.682 32.6031 207.996L34.6043 204.486ZM31.3036 210.271C32.1097 210.725 32.8096 211.346 33.3564 212.093C33.9032 212.839 34.2844 213.694 34.4743 214.6H28.8346L31.3036 210.271ZM28.1069 222.4C26.3837 222.4 24.7311 221.715 23.5126 220.496C22.2941 219.277 21.6096 217.624 21.6096 215.9C21.6096 214.176 22.2941 212.523 23.5126 211.304C24.7311 210.085 26.3837 209.4 28.1069 209.4H28.6397L24.2085 217.2H34.4743C34.1747 218.668 33.3773 219.988 32.217 220.935C31.0567 221.883 29.6048 222.4 28.1069 222.4Z" fill="currentColor" />
+</svg></span><span>Tools</span></button>
   </nav>
 
   <section id="panel" aria-label="Side panel">

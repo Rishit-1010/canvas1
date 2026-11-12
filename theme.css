@@ -15,14 +15,14 @@
 html,body{background:var(--page);font-family:var(--font);color:var(--ink)}
 :focus-visible{outline:2px solid var(--ultra);outline-offset:2px;border-radius:10px}
 .ic{width:24px;height:24px;flex:none;overflow:visible}
-.ic .a{fill:var(--lime);stroke:none}
+.ic .a{display:none}
 
 /* ── Brand capsule (top left) ── */
 #topbar{inset:14px auto auto 14px;width:auto;height:50px;padding:5px 16px 5px 5px;gap:6px;justify-content:flex-start;
   background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);z-index:80}
 #sidebarBtn{position:static;width:40px;height:40px;border-radius:13px;background:var(--tile);color:var(--ink);transition:background .15s,transform .2s var(--ease)}
 #sidebarBtn svg{width:22px;height:22px;transform:none}
-#sidebarBtn:hover{background:var(--lime);transform:rotate(-6deg)}
+#sidebarBtn:hover{background:var(--tile2);transform:none}
 #sidebarBtn:active{transform:scale(.92)}
 #title{height:auto;display:flex;align-items:center;gap:8px;font:800 18px/1 var(--display);letter-spacing:-.02em;color:var(--ink)}
 #title img{width:26px;height:26px;border-radius:7px;display:block}
@@ -38,10 +38,10 @@ html,body{background:var(--page);font-family:var(--font);color:var(--ink)}
 #sidebar .ni{background:var(--tile);border-radius:13px;color:var(--ink)}
 #sidebar .ni svg{stroke-width:1.75}
 #sidebar .nav:hover{background:var(--tile);transform:none}
-#sidebar .nav:hover .ni{background:var(--lime);color:var(--ink);transform:rotate(-6deg)}
+#sidebar .nav:hover .ni{background:var(--tile2);transform:none}
 #sidebar .nav.current{background:var(--ink);box-shadow:none;color:#fff}
-#sidebar .nav.current .ni{background:var(--lime);color:var(--ink)}
-#sidebar .nav.current::after{background:var(--lime);box-shadow:none;width:9px;height:9px}
+#sidebar .nav.current .ni{background:#fff;color:var(--ink)}
+#sidebar .nav.current::after{display:none}
 .sb-foot{opacity:.55}
 #modal{background:rgba(12,16,53,.45);backdrop-filter:blur(4px)}
 #modal .box{border-radius:24px;padding:26px;box-shadow:var(--shadow-up)}
@@ -85,20 +85,20 @@ html,body{background:var(--page);font-family:var(--font);color:var(--ink)}
 .bb:hover:not(:disabled){background:var(--tile);box-shadow:none;transform:none}
 .bb.flat{width:36px;height:38px;background:transparent}
 .bb.flat:hover:not(:disabled){background:var(--tile);transform:none}
-#addBtn:hover:not(:disabled){background:var(--lime)}
+#addBtn:hover:not(:disabled){background:var(--tile2)}
 #prevBtn,#nextBtn{width:30px;height:38px}
 #prevBtn svg,#nextBtn svg{width:20px;height:20px}
 .lbl{color:var(--mute)}
 .lbl.txt{font:700 14px/1 var(--font)}
 #boardWord{color:var(--ink);font-weight:800;margin:0 4px 0 2px;font-family:var(--display)}
 #pageNum{width:38px;height:32px;border-radius:10px;background:var(--tile);font:700 15px/1 var(--font);color:var(--ink)}
-#pageNum:focus{background:var(--lime);box-shadow:none}
+#pageNum:focus{background:#fff;box-shadow:inset 0 0 0 2px var(--ink)}
 #delBtn:hover:not(:disabled){color:#c62828;background:rgba(198,40,40,.1)}
 #zoomRange{width:110px}
 #zoomRange::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(to right,var(--ink) var(--p),var(--tile2) var(--p))}
-#zoomRange::-webkit-slider-thumb{width:18px;height:18px;margin-top:-6px;background:var(--lime);border:3px solid var(--ink);box-shadow:none}
+#zoomRange::-webkit-slider-thumb{width:18px;height:18px;margin-top:-6px;background:#fff;border:3px solid var(--ink);box-shadow:none}
 #zoomRange::-moz-range-progress{background:var(--ink)}
-#zoomRange::-moz-range-thumb{background:var(--lime);border:3px solid var(--ink)}
+#zoomRange::-moz-range-thumb{background:#fff;border:3px solid var(--ink)}
 #zoomPct{background:var(--tile);border-radius:12px;color:var(--ink)}
 @media (min-width:721px) and (max-width:1100px){#zoomRange,#boardWord{display:none}#zoomPct{display:block}}
 /* phones & small tablets: one dock at the bottom */
@@ -125,17 +125,17 @@ html,body{background:var(--page);font-family:var(--font);color:var(--ink)}
 .chip{border-radius:12px;border:1.5px solid var(--line);background:#fff;color:var(--ink)}
 .chip:hover{border-color:var(--ink);box-shadow:none;transform:none;background:var(--tile)}
 .chip.on{background:var(--ink);color:#fff;border-color:var(--ink);box-shadow:none}
-.chip.on svg .a{fill:var(--lime)}
+.chip.on svg .a{fill:var(--tile2)}
 #pop p.hint{background:var(--tile);border-radius:12px}
 .dot.on{box-shadow:0 0 0 2.5px #fff,0 0 0 5px var(--ink)}
 #pop input[type=range]::-webkit-slider-runnable-track{background:linear-gradient(to right,var(--ink) var(--p),var(--tile2) var(--p))}
-#pop input[type=range]::-webkit-slider-thumb{background:var(--lime);border:3px solid var(--ink);box-shadow:none}
+#pop input[type=range]::-webkit-slider-thumb{background:#fff;border:3px solid var(--ink);box-shadow:none}
 #selbar{border-radius:16px;box-shadow:var(--shadow-up);border:1px solid var(--line)}
-#selbar button:hover{background:var(--lime)}
+#selbar button:hover{background:var(--tile2)}
 #hint{top:76px;background:var(--ink);border-radius:16px;box-shadow:var(--shadow-up);font-family:var(--font)}
 
 /* ═════════ GRAPH ═════════ */
-#app{position:fixed;inset:76px 14px 14px 14px;display:flex;gap:12px;background:transparent}
+#app{position:fixed;inset:14px;display:flex;gap:12px;background:transparent}
 #rail{width:66px;margin:0;padding:8px 6px;gap:4px;height:auto;align-self:flex-start;background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}
 .rb{width:100%;height:58px;gap:4px;border-radius:16px;color:var(--ink);font:700 11px var(--font)}
 .rb svg{width:24px;height:24px}
@@ -150,15 +150,15 @@ html,body{background:var(--page);font-family:var(--font);color:var(--ink)}
 .sq{border:0;border-radius:13px;background:var(--tile);color:var(--ink);width:42px;height:42px}
 .sq svg{width:22px;height:22px}
 .sq.plain{background:var(--tile)}.sq.plain.on{background:var(--ink);color:#fff}
-.sq.plain.on svg .a{fill:var(--lime)}
+.sq.plain.on svg .a{fill:var(--tile2)}
 .sq:hover:not(:disabled){background:var(--tile2);transform:none;box-shadow:none}
 .sq.plain.on:hover{background:#1c2260}
 .coll{width:42px;height:42px;border-radius:13px;background:var(--tile);color:var(--ink)}
-.coll:hover{background:var(--lime);transform:none}
+.coll:hover{background:var(--tile2);transform:none}
 .coll svg{width:22px;height:22px}
 .coll.open{left:14px;top:14px;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
 .coll.open svg{transform:scaleX(-1)}
-.coll.open:hover{background:var(--lime);transform:none}
+.coll.open:hover{background:var(--tile2);transform:none}
 .row{border-bottom:1px solid var(--line)}
 .dot{border-right:1px solid var(--line)}
 .row.focus{background:#f7f8fc}
@@ -168,7 +168,7 @@ html,body{background:var(--page);font-family:var(--font);color:var(--ink)}
 #geoHead{background:var(--tile);border-bottom:0;padding:12px 20px}
 #toolsPane{padding:4px 14px 18px}
 #toolsPane h3{display:flex;align-items:center;gap:8px;padding:18px 2px 8px}
-#toolsPane h3::before{content:"";width:18px;height:8px;border-radius:4px;background:var(--lime);flex:none}
+#toolsPane h3::before{content:"";width:18px;height:6px;border-radius:3px;background:var(--ultra);flex:none}
 #toolsPane .grid{gap:6px}
 #toolsPane .chip{min-height:46px;padding:5px 8px 5px 5px;gap:9px;justify-content:flex-start;border-radius:15px;border:1.5px solid var(--line);font:700 12.5px/1.15 var(--font)}
 #toolsPane .chip svg{width:34px;height:34px;padding:5px;border-radius:11px;background:var(--tile);transition:background .15s}
@@ -180,7 +180,7 @@ html,body{background:var(--page);font-family:var(--font);color:var(--ink)}
 #gstage{border-radius:24px;border:1px solid var(--line);box-shadow:var(--shadow);background:#fff;isolation:isolate}
 .fab{width:48px;height:48px;border-radius:16px;background:var(--card);border:1px solid var(--line);color:var(--ink);box-shadow:var(--shadow);backdrop-filter:none}
 .fab svg{width:22px;height:22px}
-.fab:hover{background:var(--lime);transform:none;box-shadow:var(--shadow)}
+.fab:hover{background:var(--tile2);transform:none;box-shadow:var(--shadow)}
 .fab:active{transform:scale(.94)}
 .fab.on{background:var(--ink);color:#fff}
 #setBtn{top:14px;right:14px}#setBtn:hover svg{transform:rotate(30deg)}
@@ -189,14 +189,14 @@ html,body{background:var(--page);font-family:var(--font);color:var(--ink)}
 #settings h3{text-transform:none;letter-spacing:0;opacity:1;font:800 14px var(--display);color:var(--ink);padding:14px 18px 6px}
 .srow:hover{background:var(--tile)}
 #settings .sw{background:var(--tile2)}#settings .srow.on .sw{background:var(--ink)}
-#settings .sw::after{box-shadow:none}#settings .srow.on .sw::after{background:var(--lime)}
+#settings .sw::after{box-shadow:none}#settings .srow.on .sw::after{background:#fff}
 .seg{background:var(--tile);border-radius:12px}.seg button{border-radius:9px}.seg button.on{background:var(--ink);box-shadow:none}
 .sbtns button{border:0;background:var(--tile);border-radius:12px;height:40px}.sbtns button:hover{background:var(--tile2);transform:none;box-shadow:none}
 .sbtns button.danger{background:rgba(198,40,40,.08)}
 #tip{background:var(--ink);border-radius:10px}
 .ktabs .kx{border-radius:11px;background:var(--tile)}
 @media (max-width:760px){
-  #app{inset:72px 8px 8px 8px;gap:8px}
+  #app{inset:8px;gap:8px}
   #rail{width:56px;padding:6px 4px}
   .rb{height:54px}
   #panel{position:absolute;left:64px;top:0;bottom:0;width:min(320px,calc(100vw - 88px));margin:0;box-shadow:var(--shadow-up)}
@@ -212,3 +212,14 @@ html,body{background:var(--page);font-family:var(--font);color:var(--ink)}
 @media (min-width:721px){.tool{height:62px;width:64px}}
 #ctrl .bb svg{width:24px;height:24px}
 #scrim{z-index:90}#sidebar{z-index:95}
+
+/* original board icons (Move, Tools, Clear) */
+.tool img{width:28px;height:28px;display:block;object-fit:contain}
+.tool .rw{display:none}.tool.active .rn{display:none}.tool.active .rw{display:block}
+.tool:not(.active):hover img{transform:translateY(-1px)}
+.tool img{transition:transform .2s var(--ease)}
+/* graph: menu, Algebra and Tools share one box */
+#rail #sidebarBtn{width:100%;height:46px;border-radius:16px;flex:none}
+.rsep{display:block;width:60%;height:1px;background:var(--line);margin:3px auto 4px;flex:none}
+.rb .gi{display:flex;width:24px;height:24px;align-items:center;justify-content:center}
+.rb .gi svg{width:26px;height:26px;overflow:visible}
