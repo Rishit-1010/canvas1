@@ -153,14 +153,14 @@ function drawGrid() {
   const crisp = v => Math.round(v) + .5;
   if (S.grid && !S.polar) {
     if (S.minor) {
-      ctx.beginPath(); ctx.strokeStyle = 'rgba(0,0,0,.2)'; ctx.lineWidth = .6;
+      ctx.beginPath(); ctx.strokeStyle = 'rgba(12,16,53,.09)'; ctx.lineWidth = .6;
       const ms = step / sub; let ko = Math.ceil(x0 / ms), ke = Math.floor(x1 / ms);
       if ((ke - ko) < 400) for (let k = ko; k <= ke; k++) { if (k % sub === 0) continue; const x = crisp(sxOf(k * ms)); line(x, 0, x, H); }
       ko = Math.ceil(y0 / ms); ke = Math.floor(y1 / ms);
       if ((ke - ko) < 400) for (let k = ko; k <= ke; k++) { if (k % sub === 0) continue; const y = crisp(syOf(k * ms)); line(0, y, W, y); }
       ctx.stroke();
     }
-    ctx.beginPath(); ctx.strokeStyle = 'rgba(0,0,0,.55)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.strokeStyle = 'rgba(12,16,53,.2)'; ctx.lineWidth = 1;
     for (let k = Math.ceil(x0 / step); k <= Math.floor(x1 / step); k++) { const x = crisp(sxOf(k * step)); line(x, 0, x, H); }
     for (let k = Math.ceil(y0 / step); k <= Math.floor(y1 / step); k++) { const y = crisp(syOf(k * step)); line(0, y, W, y); }
     ctx.stroke();
@@ -170,21 +170,21 @@ function drawGrid() {
     const rin = Math.max(0, Math.hypot(Math.min(Math.abs(ox), Math.abs(W - ox)) * (ox > 0 && ox < W ? 0 : 1), Math.min(Math.abs(oy), Math.abs(H - oy)) * (oy > 0 && oy < H ? 0 : 1)) / ppu);
     const ring = (rad) => { ctx.moveTo(ox + rad * ppu, oy); ctx.arc(ox, oy, rad * ppu, 0, TAU); };
     if (S.minor) {
-      ctx.beginPath(); ctx.strokeStyle = 'rgba(0,0,0,.2)'; ctx.lineWidth = .6; const ms = step / sub;
+      ctx.beginPath(); ctx.strokeStyle = 'rgba(12,16,53,.09)'; ctx.lineWidth = .6; const ms = step / sub;
       for (let k = Math.max(1, Math.floor(rin / ms)); k * ms <= R && k < 1500; k++) if (k % sub) ring(k * ms);
       for (let a = 0; a < 24; a++) if (a % 2) { const t = a * Math.PI / 12; line(ox, oy, ox + Math.cos(t) * R * ppu, oy - Math.sin(t) * R * ppu); }
       ctx.stroke();
     }
-    ctx.beginPath(); ctx.strokeStyle = 'rgba(0,0,0,.55)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.strokeStyle = 'rgba(12,16,53,.2)'; ctx.lineWidth = 1;
     for (let k = Math.max(1, Math.floor(rin / step)); k * step <= R && k < 500; k++) ring(k * step);
     for (let a = 0; a < 12; a++) { const t = a * Math.PI / 6; line(ox, oy, ox + Math.cos(t) * R * ppu, oy - Math.sin(t) * R * ppu); }
     ctx.stroke();
   }
-  ctx.strokeStyle = '#000'; ctx.lineWidth = 2;
+  ctx.strokeStyle = '#0c1035'; ctx.lineWidth = 1.8;
   if (S.xaxis && oy >= -2 && oy <= H + 2) { ctx.beginPath(); line(0, Math.round(oy), W, Math.round(oy)); ctx.stroke(); }
   if (S.yaxis && ox >= -2 && ox <= W + 2) { ctx.beginPath(); line(Math.round(ox), 0, Math.round(ox), H); ctx.stroke(); }
   if (S.nums) {
-    ctx.font = '600 13px Quicksand,sans-serif'; ctx.fillStyle = '#000'; ctx.lineJoin = 'round'; ctx.lineWidth = 3.5; ctx.strokeStyle = 'rgba(255,255,255,.9)';
+    ctx.font = '600 13px Figtree,sans-serif'; ctx.fillStyle = '#4b5078'; ctx.lineJoin = 'round'; ctx.lineWidth = 3.5; ctx.strokeStyle = 'rgba(255,255,255,.9)';
     const lab = (t, x, y) => { ctx.strokeText(t, x, y); ctx.fillText(t, x, y); };
     const ly = clamp(oy + 5, 4, H - 20); ctx.textBaseline = 'top'; ctx.textAlign = 'right';
     if (S.xaxis || S.grid) {
@@ -287,7 +287,7 @@ function drawRows() {
   ctx.setLineDash([]);
 }
 function label(txt, x, y, col = '#000455') {
-  ctx.save(); ctx.font = '700 13.5px Quicksand,sans-serif'; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; ctx.lineJoin = 'round';
+  ctx.save(); ctx.font = '700 13.5px Figtree,sans-serif'; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; ctx.lineJoin = 'round';
   ctx.lineWidth = 4; ctx.strokeStyle = 'rgba(255,255,255,.93)'; ctx.strokeText(txt, x, y); ctx.fillStyle = col; ctx.fillText(txt, x, y); ctx.restore();
 }
 

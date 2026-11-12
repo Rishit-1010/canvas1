@@ -6,7 +6,7 @@
 const $ = (s, r = document) => r.querySelector(s);
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const NAVY = '#000455';
-const FONTS = { sans: "'Quicksand','Segoe UI',system-ui,sans-serif", serif: "Georgia,'Times New Roman',serif", mono: "'Courier New',monospace", hand: "'Comic Sans MS','Segoe Print',cursive" };
+const FONTS = { sans: "'Figtree','Segoe UI',system-ui,sans-serif", serif: "Georgia,'Times New Roman',serif", mono: "'Courier New',monospace", hand: "'Comic Sans MS','Segoe Print',cursive" };
 const COLORS = ['#000455', '#111111', '#e53935', '#fb8c00', '#fdd835', '#43a047', '#1e88e5', '#8e24aa', '#ffffff', '#9e9e9e'];
 const MIN_Z = 0.1, MAX_Z = 4;
 let uidN = 0; const uid = () => Date.now().toString(36) + (uidN++).toString(36) + Math.random().toString(36).slice(2, 5);
@@ -377,7 +377,8 @@ window.addEventListener('resize', resize);
 
 /* ───────── Bottom bar layout ───────── */
 const bbar = $('#bbar');
-const barTop = () => bbar.getBoundingClientRect().top;
+const rail = () => matchMedia('(min-width:721px)').matches;          /* wide screens: tools sit in a floating rail on the left */
+const barTop = () => rail() ? innerHeight - 10 : bbar.getBoundingClientRect().top;
 function layout() {
   const h = Math.round(bbar.getBoundingClientRect().height);
   if (String(h) !== document.documentElement.style.getPropertyValue('--bar-h').replace('px', '')) {
@@ -405,8 +406,14 @@ function closePop() { closePicker(); popFor = null; pop.hidden = true; document.
 function placePop() {
   if (!popFor || pop.hidden) return;
   const b = toolBtn(popFor).getBoundingClientRect(), pw = pop.offsetWidth, ph = pop.offsetHeight;
+  if (rail()) {                                                         /* open beside the rail, level with the tool */
+    pop.style.maxHeight = Math.max(160, innerHeight - 84) + 'px';
+    const h = Math.min(pop.offsetHeight, innerHeight - 84);
+    pop.style.left = Math.min(b.right + 14, innerWidth - pw - 8) + 'px';
+    pop.style.top = clamp(b.top + b.height / 2 - h / 2, 74, innerHeight - h - 12) + 'px'; return;
+  }
   const bt = barTop(); pop.style.maxHeight = Math.max(160, bt - 78) + 'px';
-  const ph2 = Math.min(ph, bt - 78), x = clamp(b.left + b.width / 2 - pw / 2, 6, innerWidth - pw - 6);
+  const ph2 = Math.min(ph, bt - 78), x = clamp(b.left + b.width / 2 - pw / 2, 6, innerWidth - pw - 8);
   pop.style.left = x + 'px'; pop.style.top = Math.max(66, bt - ph2 - 12) + 'px';
 }
 const HAS_POP = new Set(['select', 'pen', 'eraser', 'shapes', 'text', 'tools']);

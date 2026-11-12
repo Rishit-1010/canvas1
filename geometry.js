@@ -243,7 +243,7 @@ function draw(c, o, z, f) {
   const label = (x, y, extra) => {
     if (!o.lbl && !(extra && f.sel)) return;
     const txt = (o.lbl ? o.name : '') + (extra && f.sel ? (o.lbl ? '  ' : '') + extra : '');
-    c.save(); c.font = `700 ${14 / z}px Quicksand,sans-serif`; c.textBaseline = 'alphabetic'; c.textAlign = 'left'; c.lineJoin = 'round';
+    c.save(); c.font = `700 ${14 / z}px Figtree,sans-serif`; c.textBaseline = 'alphabetic'; c.textAlign = 'left'; c.lineJoin = 'round';
     c.lineWidth = 4 / z; c.strokeStyle = 'rgba(255,255,255,.92)'; c.strokeText(txt, x, y); c.fillStyle = col; c.fillText(txt, x, y); c.restore();
   };
   switch (r.t) {
@@ -276,11 +276,11 @@ function draw(c, o, z, f) {
     case 'ang': {
       const rad = 28 / z; c.beginPath(); c.moveTo(r.x, r.y); c.arc(r.x, r.y, rad, -r.a0, -r.a1, true); c.closePath(); c.save(); c.fillStyle = 'rgba(220,60,60,.18)'; c.fill(); c.restore();
       c.lineWidth = 1.5 / z; c.stroke(); const m = (r.a0 + r.a1) / 2;
-      c.font = `${14 / z}px Quicksand,sans-serif`; c.fillStyle = col; c.textAlign = 'center'; c.textBaseline = 'middle';
+      c.font = `${14 / z}px Figtree,sans-serif`; c.fillStyle = col; c.textAlign = 'center'; c.textBaseline = 'middle';
       c.fillText(r.deg.toFixed(1) + '°', r.x + 46 / z * Math.cos(m) + (o.ox || 0), r.y - 46 / z * Math.sin(m) + (o.oy || 0)); break;
     }
     case 'txt': {
-      c.font = `${15 / z}px Quicksand,sans-serif`; c.textAlign = 'center'; c.textBaseline = 'middle'; const w = c.measureText(r.text).width + 10 / z;
+      c.font = `${15 / z}px Figtree,sans-serif`; c.textAlign = 'center'; c.textBaseline = 'middle'; const w = c.measureText(r.text).width + 10 / z;
       c.fillStyle = 'rgba(255,255,255,.85)'; c.fillRect(r.x - w / 2, r.y - 10 / z, w, 20 / z);
       if (f.sel) { c.strokeStyle = '#1e88e5'; c.lineWidth = 1 / z; c.strokeRect(r.x - w / 2, r.y - 10 / z, w, 20 / z); }
       c.fillStyle = col; c.fillText(r.text, r.x, r.y); break;
@@ -322,7 +322,7 @@ const isPoint = o => o.type === 'geo' && !!ev(o) && ev(o).t === 'p';
 const ICON_BODY = (() => {
   const D = (x, y, r = 1.9) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#3b5bff" stroke="none"/>`;
   const H = (x, y, r = 2.1) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#fff"/>`;
-  const T = (x, y, s, t) => `<text x="${x}" y="${y}" font-family="Quicksand,Arial,sans-serif" font-size="${s}" font-weight="700" fill="currentColor" stroke="none">${t}</text>`;
+  const T = (x, y, s, t) => `<text x="${x}" y="${y}" font-family="Figtree,Arial,sans-serif" font-size="${s}" font-weight="700" fill="currentColor" stroke="none">${t}</text>`;
   const AH = (x, y, a) => `<path d="M${x} ${y}l${(-5.5 * Math.cos(a - .45)).toFixed(2)} ${(-5.5 * Math.sin(a - .45)).toFixed(2)}M${x} ${y}l${(-5.5 * Math.cos(a + .45)).toFixed(2)} ${(-5.5 * Math.sin(a + .45)).toFixed(2)}"/>`;
   const F = 'fill="#3b5bff" fill-opacity=".22"';
   return {
