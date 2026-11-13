@@ -1,0 +1,18 @@
+/* Desktop layout (screens wider than a tablet): no top bar, the menu button floats / sits in the rail. */
+#topbar{background:none;height:0;box-shadow:none;pointer-events:none}
+#title{display:none}
+#sidebarBtn{pointer-events:auto;position:fixed;left:20px;top:20px;width:42px;height:42px;border-radius:10px;background:#fff;color:var(--navy);
+  border:1px solid rgba(0,4,85,.22);box-shadow:0 1px 3px rgba(0,0,0,.1);z-index:90}
+#sidebarBtn:hover{background:#eef0f8}
+#sidebarBtn svg{transform:none}
+#scrim{inset:0}
+#sidebar{top:0}
+#stage{inset:0 0 var(--bar-h,84px) 0}
+#hint{top:24px}
+#app{inset:0}
+#rail{padding-top:100px}
+body:has(#rail) #sidebarBtn{left:9px;top:18px;width:42px;height:42px;background:none;border:0;box-shadow:none;border-radius:12px}
+body:has(#rail) #sidebarBtn:hover{background:#eef0f8}
+/* whiteboard bar: white, larger tools */
+#bbar{--tw:60px;background:#fff}
+#tools{gap:10px}
