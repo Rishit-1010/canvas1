@@ -3,7 +3,7 @@
    - Google Fonts: cached after the first visit */
 'use strict';
 
-const CACHE = 'canvas-v13';
+const CACHE = 'canvas-v14';
 const SCOPE_PATH = new URL(self.registration.scope).pathname;
 const SHELL = [
   './', './index.html', './board.html', './graph.html', './common.css', './theme.css', './classic/board.html', './classic/graph.html', './classic/common.css', './classic/classic.css', './classic/style.css', './classic/graph.css', './classic/script.js', './classic/geometry.js', './classic/graph.js', './classic/graph-math.js', './theme.css', './style.css', './graph.css',

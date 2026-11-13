@@ -4,7 +4,7 @@
 #sidebarBtn{pointer-events:auto;position:fixed;left:20px;top:20px;width:42px;height:42px;border-radius:10px;background:#fff;color:var(--navy);
   border:1px solid rgba(0,4,85,.22);box-shadow:0 1px 3px rgba(0,0,0,.1);z-index:90}
 #sidebarBtn:hover{background:#eef0f8}
-#sidebarBtn svg{transform:none}
+#sidebarBtn svg{transform:scaleX(-1)}
 #scrim{inset:0}
 #sidebar{top:0}
 #stage{inset:0 0 var(--bar-h,84px) 0}
@@ -40,3 +40,9 @@ body:has(#rail) #sidebarBtn:hover{background:#eef0f8}
   #fabs .fab{width:38px;height:38px;box-shadow:0 0 0 1px rgba(0,4,85,.16)}
   #fabs .fab svg{width:18px;height:18px}
 }
+/* undo / redo: plain, larger icons (no box) */
+#undoBtn,#redoBtn{background:none;border:0;width:40px;height:40px;border-radius:8px}
+#undoBtn svg,#redoBtn svg{width:30px;height:30px}
+#undoBtn:hover:not(:disabled),#redoBtn:hover:not(:disabled){background:rgba(0,4,85,.08)}
+.cg{border-left-color:rgba(0,4,85,.55)}
+@media (max-width:560px){#undoBtn,#redoBtn{width:36px;height:36px}#undoBtn svg,#redoBtn svg{width:28px;height:28px}}
