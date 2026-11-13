@@ -10,9 +10,27 @@
 #stage{inset:0 0 var(--bar-h,84px) 0}
 #hint{top:24px}
 #app{inset:0}
-#rail{padding-top:100px}
 body:has(#rail) #sidebarBtn{left:9px;top:18px;width:42px;height:42px;background:none;border:0;box-shadow:none;border-radius:12px}
+@media (min-width:761px){#rail{padding-top:100px}}
 body:has(#rail) #sidebarBtn:hover{background:#eef0f8}
 /* whiteboard bar: white, larger tools */
-#bbar{--tw:60px;background:#fff}
-#tools{gap:10px}
+#bbar{background:#fff}
+@media (min-width:1025px){#bbar{--tw:60px}#tools{gap:10px}}
+
+/* Phones: same classic look, nothing overlaps */
+@media (max-width:760px){
+  #sidebarBtn{left:10px;top:10px;width:40px;height:40px}
+  #hint{top:14px;left:58px;right:10px;transform:none;text-align:left}
+  #tools{gap:6px;padding-left:2px}
+  #bbar{gap:6px;padding-top:6px}
+  body:has(#rail) #sidebarBtn{left:6px;top:10px;width:40px;height:40px}
+  #rail{padding-top:62px}
+  .coll.open{left:56px;top:10px}
+  #setBtn{top:10px;right:10px}
+  #fabs{bottom:12px;right:10px}
+}
+
+@media (max-width:560px){
+  #bbar{--tw:calc((100vw - 16px - 32px)/9)}
+  #tools{gap:4px;padding-left:0;padding-right:0;overflow:visible;justify-content:space-between}
+}
