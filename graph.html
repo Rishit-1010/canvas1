@@ -37,6 +37,7 @@
 <body>
 
 <div id="app">
+  <div id="lcol">
   <nav id="rail" aria-label="Panels">
     <button id="sidebarBtn" title="Switch between Whiteboard and Graph" aria-label="Open menu"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect class="a" x="3.5" y="4.5" width="6" height="15" rx="2"/><rect x="3.5" y="4.5" width="17" height="15" rx="3.5"/><path d="M9.5 4.5v15"/></svg></button>
     <span class="rsep"></span>
@@ -44,6 +45,17 @@
     <button class="rb" data-panel="tools" title="Geometry tools" aria-label="Tools"><span class="gi"><svg class="gtool" viewBox="18.00 198.00 28.00 28.00" fill="none" aria-hidden="true"><path d="M45 217.2L34.6043 199L30.0301 207.008C28.2454 206.62 26.385 206.778 24.6913 207.462C22.9975 208.146 21.5488 209.324 20.5338 210.843C19.5188 212.362 18.9845 214.152 19.0003 215.979C19.0162 217.806 19.5816 219.586 20.6229 221.088C21.6642 222.589 23.1331 223.742 24.8385 224.396C26.5438 225.051 28.4067 225.176 30.1844 224.757C31.9622 224.337 33.5725 223.392 34.8058 222.044C36.0392 220.697 36.8383 219.009 37.0992 217.2H45ZM34.6043 204.486L40.3739 214.6H37.0992C36.9014 213.23 36.3936 211.922 35.6144 210.778C34.8353 209.633 33.8054 208.682 32.6031 207.996L34.6043 204.486ZM31.3036 210.271C32.1097 210.725 32.8096 211.346 33.3564 212.093C33.9032 212.839 34.2844 213.694 34.4743 214.6H28.8346L31.3036 210.271ZM28.1069 222.4C26.3837 222.4 24.7311 221.715 23.5126 220.496C22.2941 219.277 21.6096 217.624 21.6096 215.9C21.6096 214.176 22.2941 212.523 23.5126 211.304C24.7311 210.085 26.3837 209.4 28.1069 209.4H28.6397L24.2085 217.2H34.4743C34.1747 218.668 33.3773 219.988 32.217 220.935C31.0567 221.883 29.6048 222.4 28.1069 222.4Z" fill="currentColor" />
 </svg></span><span>Tools</span></button>
   </nav>
+
+    <div id="fabs">
+      <button class="fab" id="undoBtn" title="Undo (Ctrl+Z)" aria-label="Undo"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 8h6a4.5 4.5 0 010 9H8M9 4.5L5.5 8 9 11.5"/></svg></button>
+      <button class="fab" id="redoBtn" title="Redo (Ctrl+Y)" aria-label="Redo"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 8H9a4.5 4.5 0 000 9h7M15 4.5L18.5 8 15 11.5"/></svg></button>
+      <button class="fab" id="clearBtn" title="Clear all" aria-label="Clear all"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h14M10 7V4.5h4V7M7 7l.8 12h8.4L17 7M10.5 11v5M13.5 11v5"/></svg></button>
+      <button class="fab" id="homeBtn" title="Reset view" aria-label="Home"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="a" d="M6 10v9.5h4.5v-5h3v5H18V10l-6-4.8z" transform="translate(1.2 1.2)"/><path d="M4 11l8-6.5 8 6.5M6 10v9.5h4.5v-5h3v5H18V10"/></svg></button>
+      <button class="fab" id="zinBtn" title="Zoom in" aria-label="Zoom in"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M8 11h6M11 8v6"/></svg></button>
+      <button class="fab" id="zoutBtn" title="Zoom out" aria-label="Zoom out"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M8 11h6"/></svg></button>
+      <button class="fab" id="fsBtn" title="Full screen" aria-label="Full screen"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+    </div>
+  </div>
 
   <section id="panel" aria-label="Side panel">
     <div id="phead">
@@ -68,15 +80,6 @@
     <button class="coll open" id="openPanelBtn" title="Show panel" aria-label="Show panel"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.5 6l-6 6 6 6M19 6l-6 6 6 6"/></svg></button>
     <button class="fab" id="setBtn" title="Settings" aria-label="Settings"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle class="a" cx="16" cy="8" r="2.4"/><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg></button>
     <div id="settings" hidden></div>
-    <div id="fabs">
-      <button class="fab" id="undoBtn" title="Undo (Ctrl+Z)" aria-label="Undo"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 8h6a4.5 4.5 0 010 9H8M9 4.5L5.5 8 9 11.5"/></svg></button>
-      <button class="fab" id="redoBtn" title="Redo (Ctrl+Y)" aria-label="Redo"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 8H9a4.5 4.5 0 000 9h7M15 4.5L18.5 8 15 11.5"/></svg></button>
-      <button class="fab" id="clearBtn" title="Clear all" aria-label="Clear all"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h14M10 7V4.5h4V7M7 7l.8 12h8.4L17 7M10.5 11v5M13.5 11v5"/></svg></button>
-      <button class="fab" id="homeBtn" title="Reset view" aria-label="Home"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="a" d="M6 10v9.5h4.5v-5h3v5H18V10l-6-4.8z" transform="translate(1.2 1.2)"/><path d="M4 11l8-6.5 8 6.5M6 10v9.5h4.5v-5h3v5H18V10"/></svg></button>
-      <button class="fab" id="zinBtn" title="Zoom in" aria-label="Zoom in"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M8 11h6M11 8v6"/></svg></button>
-      <button class="fab" id="zoutBtn" title="Zoom out" aria-label="Zoom out"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M8 11h6"/></svg></button>
-      <button class="fab" id="fsBtn" title="Full screen" aria-label="Full screen"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
-    </div>
   </main>
 </div>
 
