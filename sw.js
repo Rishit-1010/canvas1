@@ -3,10 +3,10 @@
    - Google Fonts: cached after the first visit */
 'use strict';
 
-const CACHE = 'canvas-v11';
+const CACHE = 'canvas-v12';
 const SCOPE_PATH = new URL(self.registration.scope).pathname;
 const SHELL = [
-  './', './index.html', './graph.html', './common.css', './classic/index.html', './classic/graph.html', './classic/common.css', './classic/classic.css', './classic/style.css', './classic/graph.css', './classic/script.js', './classic/geometry.js', './classic/graph.js', './classic/graph-math.js', './theme.css', './style.css', './graph.css',
+  './', './index.html', './graph.html', './common.css', './theme.css', './classic/index.html', './classic/graph.html', './classic/common.css', './classic/classic.css', './classic/style.css', './classic/graph.css', './classic/script.js', './classic/geometry.js', './classic/graph.js', './classic/graph-math.js', './theme.css', './style.css', './graph.css',
   './script.js', './geometry.js', './graph.js', './graph-math.js', './manifest.webmanifest',
   './icon.svg', './icon-192.png', './icon-512.png', './apple-touch-icon.png', './favicon.ico'
 ];
@@ -36,7 +36,7 @@ self.addEventListener('fetch', event => {
   if (url.origin === self.location.origin) {
     if (!url.pathname.startsWith(SCOPE_PATH)) return;
     event.respondWith(
-      fetch(req)
+      fetch(req, { cache: 'no-cache' })
         .then(res => {
           if (res && res.ok) { const copy = res.clone(); caches.open(CACHE).then(c => c.put(req, copy)); }
           return res;
