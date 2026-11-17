@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 48" fill="none">
+  <!-- Rishit's CANVAS logo -->
+  <g transform="translate(4, 6)">
+    <!-- Pen / brush icon -->
+    <rect x="2" y="4" width="28" height="28" rx="6" fill="#000455"/>
+    <path d="M10 26 L16 10 L20 10 L14 26 Z" fill="#FFFFFF"/>
+    <path d="M17 10 L22 10 L28 26 L23 26 Z" fill="#FFFFFF" opacity="0.75"/>
+    <circle cx="16" cy="30" r="2.2" fill="#FFFFFF"/>
+  </g>
+  <!-- Text -->
+  <text x="44" y="22" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="600" fill="#000455" letter-spacing="0.3">Rishit's</text>
+  <text x="44" y="40" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#000455" letter-spacing="1.5">CANVAS</text>
+</svg>
