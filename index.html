@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Rishit's CANVAS</title>
+  <meta name="description" content="Whiteboard & Graph Calculator – Rishit's CANVAS" />
+  <meta property="og:title" content="Rishit's CANVAS" />
+  <meta property="og:description" content="Draw, write & construct • Plot, solve & explore" />
+  <meta property="og:image" content="assets/logo.svg" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@400;500;600&family=Anton&family=Anta&family=Parkinsans:wght@400;500;600&family=Roboto:wght@400;500&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <!-- Math.js for expression parsing & evaluation (practical for a working graph calculator) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/13.2.0/math.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- ===================== MAIN SIDEBAR ===================== -->
+    <aside id="main-sidebar">
+      <div class="sidebar-header">
+        <img src="assets/logo.svg" alt="Rishit's CANVAS" class="sidebar-logo" />
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Workspaces</div>
+        <button class="workspace-btn active" data-workspace="whiteboard" id="btn-workspace-wb">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+            <path d="M2 2l7.586 7.586"/>
+          </svg>
+          <div class="label">
+            <span>Whiteboard</span>
+            <span>Draw, write & construct</span>
+          </div>
+        </button>
+        <button class="workspace-btn" data-workspace="graph" id="btn-workspace-graph">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M3 3v18h18"/>
+            <path d="M7 14l4-4 4 4 5-6"/>
+          </svg>
+          <div class="label">
+            <span>Graph Calculator</span>
+            <span>Plot, solve & explore</span>
+          </div>
+        </button>
+      </div>
+
+      <div class="sidebar-section board-actions">
+        <div class="sidebar-section-title">Board</div>
+        <button class="board-action" id="btn-export-png">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="M21 15l-5-5L5 21"/>
+          </svg>
+          <span>Export as PNG</span>
+        </button>
+        <button class="board-action" id="btn-save-board">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span>Save board file</span>
+        </button>
+        <button class="board-action" id="btn-open-board">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
+          </svg>
+          <span>Open board file</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ===================== MAIN CONTENT ===================== -->
+    <div id="main-content">
+      <!-- Top bar (shared) -->
+      <div class="top-bar" id="top-bar">
+        <button class="icon-btn" id="btn-toggle-sidebar" title="Toggle sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="3" y="5" width="18" height="2" rx="1"/>
+            <rect x="3" y="11" width="18" height="2" rx="1"/>
+            <rect x="3" y="17" width="18" height="2" rx="1"/>
+          </svg>
+        </button>
+
+        <!-- Graph-specific top controls (shown only in graph view) -->
+        <div id="graph-top-controls" class="hidden" style="display:flex;align-items:center;gap:6px;margin-left:4px;">
+          <button class="icon-btn" id="btn-add-expression" title="Add expression / image">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+          </button>
+          <button class="icon-btn" id="btn-toggle-keypad" title="On-screen keypad">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <line x1="6" y1="8" x2="6" y2="8.01"/>
+              <line x1="10" y1="8" x2="10" y2="8.01"/>
+              <line x1="14" y1="8" x2="14" y2="8.01"/>
+              <line x1="18" y1="8" x2="18" y2="8.01"/>
+              <line x1="6" y1="12" x2="6" y2="12.01"/>
+              <line x1="10" y1="12" x2="10" y2="12.01"/>
+              <line x1="14" y1="12" x2="14" y2="12.01"/>
+              <line x1="18" y1="12" x2="18" y2="12.01"/>
+              <line x1="6" y1="16" x2="10" y2="16"/>
+              <line x1="14" y1="16" x2="18" y2="16"/>
+            </svg>
+          </button>
+          <button class="icon-btn" id="btn-toggle-eq-sidebar" title="Toggle equation list">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" id="eq-toggle-icon">
+              <polyline points="11 17 6 12 11 7"/>
+              <polyline points="18 17 13 12 18 7"/>
+            </svg>
+          </button>
+        </div>
+
+        <div style="flex:1"></div>
+
+        <button class="icon-btn" id="btn-settings" title="Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- ================= WHITEBOARD VIEW ================= -->
+      <div id="whiteboard-view" class="active">
+        <div id="wb-canvas-container">
+          <canvas id="wb-canvas"></canvas>
+
+          <!-- Floating controls (right) -->
+          <div class="floating-controls">
+            <button class="icon-btn" id="wb-undo" title="Undo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 00-9-9 9 9 0 00-6.7 2.9L3 13"/></svg>
+            </button>
+            <button class="icon-btn" id="wb-redo" title="Redo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 019-9 9 9 0 016.7 2.9L21 13"/></svg>
+            </button>
+            <button class="icon-btn" id="wb-home" title="Reset view">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </button>
+            <button class="icon-btn" id="wb-zoom-in" title="Zoom in">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            </button>
+            <button class="icon-btn" id="wb-zoom-out" title="Zoom out">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            </button>
+            <button class="icon-btn" id="wb-fit" title="Fit to screen">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Bottom toolbar -->
+        <div class="wb-toolbar">
+          <div class="toolbar-group" id="wb-tool-group">
+            <button class="tool-btn" data-tool="select" title="Select">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="M13 13l6 6"/></svg>
+            </button>
+            <button class="tool-btn" data-tool="move" title="Move / Pan">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 9l-3 3 3 3"/><path d="M9 5l3-3 3 3"/><path d="M15 19l-3 3-3-3"/><path d="M19 9l3 3-3 3"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
+            </button>
+            <button class="tool-btn active" data-tool="pen" title="Pen">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/></svg>
+            </button>
+            <button class="tool-btn" data-tool="eraser" title="Eraser">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 20H7L3 16l9-9 8 8-4 4"/><path d="M6.5 11.5l6 6"/></svg>
+            </button>
+            <button class="tool-btn" data-tool="shapes" title="Shapes">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><circle cx="17.5" cy="6.5" r="3.5"/><path d="M3 14l4 7h8l-4-7H3z"/></svg>
+            </button>
+            <button class="tool-btn" data-tool="tools" title="Geometry Tools">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+            </button>
+            <button class="tool-btn" data-tool="clear" title="Clear board">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+            </button>
+            <button class="tool-btn" data-tool="text" title="Text">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+            </button>
+            <button class="tool-btn" data-tool="backdrop" title="Backdrop">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </button>
+          </div>
+
+          <div class="toolbar-right">
+            <div class="board-nav">
+              <button id="wb-prev-board" title="Previous board">‹</button>
+              <span id="wb-board-label">Board 1 of 1</span>
+              <button id="wb-next-board" title="Next board">›</button>
+              <button id="wb-add-board" title="Add board">+</button>
+              <button id="wb-delete-board" title="Delete board">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tool option popovers -->
+        <div id="popover-pen" class="popover">
+          <div class="popover-title">Pen</div>
+          <div class="popover-section">
+            <div class="slider-row">
+              <label>Thickness</label>
+              <input type="range" id="pen-thickness" min="1" max="40" value="3" />
+              <span class="slider-value" id="pen-thickness-val">3</span>
+            </div>
+          </div>
+          <div class="popover-section">
+            <div class="popover-title" style="margin-bottom:8px">Colour</div>
+            <div class="color-swatches" id="pen-swatches"></div>
+            <button class="btn" id="pen-custom-color" style="margin-top:10px;width:100%">Custom colour…</button>
+          </div>
+        </div>
+
+        <div id="popover-eraser" class="popover">
+          <div class="popover-title">Eraser</div>
+          <div class="popover-section">
+            <div class="slider-row">
+              <label>Size</label>
+              <input type="range" id="eraser-size" min="5" max="80" value="20" />
+              <span class="slider-value" id="eraser-size-val">20</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="popover-shapes" class="popover" style="min-width:260px">
+          <div class="popover-title">Shapes</div>
+          <div class="shape-grid" id="shape-grid"></div>
+          <div class="popover-section" style="margin-top:12px">
+            <div class="popover-title">Stroke</div>
+            <div class="stroke-styles">
+              <button class="stroke-btn active" data-stroke="solid">Solid</button>
+              <button class="stroke-btn" data-stroke="dashed">Dashed</button>
+              <button class="stroke-btn" data-stroke="dotted">Dotted</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="popover-tools" class="popover" style="min-width:280px;max-height:400px;overflow:auto">
+          <div class="popover-title">Geometry Tools</div>
+          <div class="geo-tools-grid" id="geo-tools-grid"></div>
+        </div>
+
+        <div id="popover-text" class="popover" style="min-width:240px">
+          <div class="popover-title">Text</div>
+          <div class="popover-section">
+            <div class="popover-title">Font</div>
+            <div class="font-list" id="font-list"></div>
+          </div>
+          <div class="popover-section">
+            <div class="slider-row">
+              <label>Size</label>
+              <input type="range" id="text-size" min="12" max="72" value="24" />
+              <span class="slider-value" id="text-size-val">24</span>
+            </div>
+          </div>
+          <div class="popover-section">
+            <div class="popover-title">Colour</div>
+            <div class="color-swatches" id="text-swatches"></div>
+          </div>
+        </div>
+
+        <div id="popover-backdrop" class="popover" style="min-width:240px">
+          <div class="popover-title">Backdrop</div>
+          <div class="popover-section">
+            <div class="popover-title">Colour</div>
+            <div class="color-swatches" id="bg-swatches"></div>
+          </div>
+          <div class="popover-section">
+            <div class="popover-title">Pattern</div>
+            <div class="pattern-grid" id="pattern-grid"></div>
+          </div>
+          <div class="popover-section">
+            <button class="btn" id="bg-image-btn" style="width:100%">Upload image…</button>
+            <input type="file" id="bg-image-input" accept="image/*" hidden />
+          </div>
+        </div>
+
+        <div id="popover-select" class="popover">
+          <div class="popover-title">Selection</div>
+          <button class="btn" data-select="rect" style="width:100%;margin-bottom:6px">Rectangular</button>
+          <button class="btn" data-select="freeform" style="width:100%">Free-form (lasso)</button>
+        </div>
+      </div>
+
+      <!-- ================= GRAPH CALCULATOR VIEW ================= -->
+      <div id="graph-view">
+        <div class="graph-body">
+          <aside id="eq-sidebar">
+            <div class="eq-header">
+              <span style="font-size:13px;font-weight:600;color:var(--gray-500);padding-left:6px">Expressions</span>
+            </div>
+            <div class="eq-list" id="eq-list"></div>
+          </aside>
+
+          <div id="graph-canvas-container">
+            <canvas id="graph-canvas"></canvas>
+
+            <div class="graph-floating">
+              <button class="icon-btn" id="graph-home" title="Reset view">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </button>
+              <button class="icon-btn" id="graph-zoom-in" title="Zoom in">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </button>
+              <button class="icon-btn" id="graph-zoom-out" title="Zoom out">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="keypad">
+          <div class="keypad-tabs" id="keypad-tabs">
+            <button class="keypad-tab active" data-tab="basic">Basic</button>
+            <button class="keypad-tab" data-tab="functions">Functions</button>
+            <button class="keypad-tab" data-tab="trig">Trig</button>
+            <button class="keypad-tab" data-tab="calc">Calculus</button>
+            <button class="keypad-tab" data-tab="abc">ABC</button>
+          </div>
+          <div class="keypad-grid" id="keypad-grid"></div>
+        </div>
+      </div>
+
+      <!-- Settings panel (shared) -->
+      <div id="settings-panel">
+        <div class="popover-title">Settings</div>
+        <div class="setting-row">
+          <span>Show grid</span>
+          <div class="toggle on" id="set-grid"></div>
+        </div>
+        <div class="setting-row">
+          <span>Minor grid lines</span>
+          <div class="toggle on" id="set-minor-grid"></div>
+        </div>
+        <div class="setting-row">
+          <span>Show axes</span>
+          <div class="toggle on" id="set-axes"></div>
+        </div>
+        <div class="setting-row">
+          <span>Equal aspect ratio</span>
+          <div class="toggle on" id="set-aspect"></div>
+        </div>
+        <div class="setting-row">
+          <span>Show labels</span>
+          <div class="toggle on" id="set-labels"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation modal -->
+  <div class="modal-overlay" id="confirm-modal">
+    <div class="modal">
+      <h3 id="confirm-title">Clear board?</h3>
+      <p id="confirm-msg">This will permanently erase everything on the current board.</p>
+      <div class="modal-actions">
+        <button class="btn" id="confirm-cancel">Cancel</button>
+        <button class="btn danger" id="confirm-ok">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Color picker modal (Figma-like) -->
+  <div class="modal-overlay" id="color-picker-modal">
+    <div class="modal" style="width:280px;text-align:left">
+      <div class="popover-title">Custom Colour</div>
+      <div class="cp-preview" id="cp-preview"></div>
+      <div class="cp-hue" id="cp-hue" style="background:linear-gradient(to right,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)"></div>
+      <div class="cp-sat" id="cp-sat"></div>
+      <div class="cp-hex-row">
+        <span style="font-size:13px;color:var(--gray-500)">#</span>
+        <input type="text" id="cp-hex" maxlength="6" value="000455" />
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="cp-cancel">Cancel</button>
+        <button class="btn primary" id="cp-apply">Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/sidebar.js"></script>
+  <script src="js/whiteboard.js"></script>
+  <script src="js/graph.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
